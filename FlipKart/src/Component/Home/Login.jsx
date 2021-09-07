@@ -1,5 +1,5 @@
-import { Dialog, DialogContent, makeStyles } from '@material-ui/core'
-import React from 'react'
+import { Dialog, DialogContent, makeStyles } from '@material-ui/core';
+import React from 'react';
 
 
 const useStyle=makeStyles({
@@ -7,7 +7,7 @@ const useStyle=makeStyles({
         height:"70vh",
         width:"90vh"
     }
-})
+});
 const Login = ({open,setOpen}) => {
     const classes=useStyle();
     const handleClose=()=>{
