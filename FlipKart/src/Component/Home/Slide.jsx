@@ -1,9 +1,10 @@
-import { makeStyles, Box, Typography, Button } from "@material-ui/core"
-import Countdown from "react-countdown"
+import { makeStyles, Box, Typography, Button, Divider } from "@material-ui/core";
+import React from "react";
+import Countdown from "react-countdown";
 
-import Carousel from "react-multi-carousel"
+import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-// omponent
+// Component
 
 import { products } from '../../Constants/data';
 
@@ -49,6 +50,9 @@ const useStyle = makeStyles({
     text:{
         fontSize:14,
         marginTop:5
+    },
+    wrapper:{
+        padding:"25px 15px"
     }
 
 });
@@ -69,7 +73,7 @@ const responsive = {
     },
 
 };
-const Slide = () => {
+const Slide = ({timer,title}) => {
     const classes = useStyle();
     // const adURL = 'https://rukminim1.flixcart.com/flap/464/708/image/633789f7def60050.jpg?q=70';
     const timerURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg';
@@ -83,12 +87,18 @@ const Slide = () => {
         <Box className={classes.box} >
             <Box className={classes.offer}>
                 <Typography className={classes.offertext}>
-                    Super saver Deal Of The Day
+                    {title}
                 </Typography>
+                {
+                    timer &&
+                    <React.Fragment>
                 <img src={timerURL} alt="" style={{ width: 24, marginRight: 5 }} />
                 <Countdown date={Date.now() + 5.04e+7} renderer={renderer} />
                 <Button variant='contained' color="primary" className={classes.offerbutton}> VIEW ALL</Button>
-            </Box>
+                </React.Fragment>
+            }
+                </Box>
+            <Divider/>
             <Carousel
                 responsive={responsive}
                 infinite={true}
@@ -107,7 +117,7 @@ const Slide = () => {
                 {
 
                     products.map((product) => (
-                        <Box textAlign="center">
+                        <Box textAlign="center" className={classes.wrapper}>
                         <img src={product.url} alt="" className={classes.image} />
                         <Typography className={classes.text} style={{fontWeight:600, color:"#212121"}}>{product.title.shortTitle}</Typography>
                         <Typography  className={classes.text} style={{color:'green'}}>{product.discount}</Typography>
