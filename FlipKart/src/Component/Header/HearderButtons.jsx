@@ -1,6 +1,9 @@
 import { Box, Button, makeStyles, Typography, Badge } from "@material-ui/core"
 import { ShoppingCart } from '@material-ui/icons';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useState } from "react";
+// Components
+import Login from "../Home/Login"
 
 
 const useStyle = makeStyles({
@@ -33,10 +36,15 @@ const useStyle = makeStyles({
 })
 const HearderButtons = () => {
     const classes = useStyle();
+    const [open , setOpen] = useState()
+
+    const openLogindailog=()=>{
+        setOpen(true)
+    }
     return (
         <Box className={classes.wrapper}>
             <Link to="/">
-                <Button variant="contained" className={classes.login}>
+                <Button variant="contained" className={classes.login} onClick={openLogindailog}>
                     Login
                 </Button>
             </Link>
@@ -53,6 +61,7 @@ const HearderButtons = () => {
 
 
             </Link>
+            <Login open={open} setOpen={setOpen}/>
         </Box>
     )
 };
