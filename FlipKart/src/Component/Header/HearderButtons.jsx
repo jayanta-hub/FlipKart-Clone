@@ -17,7 +17,7 @@ const useStyle = makeStyles({
         boxShadow: "none"
     },
     wrapper: {
-        margin: "0 7% 0 auto",
+        margin: "0 7% 0 2%",
         display: "flex",
         "& > *": {
             marginRight: 50,
