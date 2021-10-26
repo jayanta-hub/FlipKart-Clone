@@ -1,3 +1,6 @@
+// Global Store
+
+
 import React, { createContext } from 'react';
 import { CssBaseline } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
@@ -32,4 +35,4 @@ MuiDialogContent:{
     )
 }
 
-export default TempleteProvider
+export default TempleteProvider;

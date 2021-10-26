@@ -9,7 +9,7 @@ const useStyle = makeStyles((theme) => ({
         borderRadius: 2,
         backgroundColor: "#fff",
         marginLeft: 10,
-        width: '43%',
+        width: '40%',
         display: "flex",
         marginBottom: 5,
         justifyContent: 'center',

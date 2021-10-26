@@ -1,9 +1,11 @@
 import { Box, Button, makeStyles, Typography, Badge } from "@material-ui/core"
 import { ShoppingCart } from '@material-ui/icons';
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 // Components
-import Login from "../Home/Login"
+import Login from "../Home/Login";
+import { LoginContext } from "../../Context/ContextProvider";
+import Profile from "./Profile"
 
 
 const useStyle = makeStyles({
@@ -17,10 +19,11 @@ const useStyle = makeStyles({
         boxShadow: "none"
     },
     wrapper: {
-        margin: "0 7% 0 2%",
+        margin: "0 7% 0 15%",
         display: "flex",
         "& > *": {
-            marginRight: 50,
+            // marginRight: 40,
+            marginLeft: 40,
             alignItem: "center",
             textDecoration: "none",
             color: "#fff",
@@ -36,23 +39,28 @@ const useStyle = makeStyles({
 })
 const HearderButtons = () => {
     const classes = useStyle();
-    const [open , setOpen] = useState()
+    const [open, setOpen] = useState();
+    const { account, setAccount } = useContext(LoginContext);
 
-    const openLogindailog=()=>{
+    const openLogindailog = () => {
         setOpen(true)
     }
     return (
         <Box className={classes.wrapper}>
+            {
+                account ? <Profile account = {account} setAccount={setAccount}/>
+                    :
+                    <Link to="/">
+                        <Button variant="contained" className={classes.login} onClick={openLogindailog}>
+                            Login
+                        </Button>
+                    </Link>
+            }
             <Link to="/">
-                <Button variant="contained" className={classes.login} onClick={openLogindailog}>
-                    Login
-                </Button>
+                <Typography style={{ marginTop: "4px" }}>
+                    More
+                </Typography>
             </Link>
-            <Link to="/">
-             <Typography style={{ marginTop: "4px" }}>
-             More
-             </Typography>
-             </Link>
             <Link to="/cart" className={classes.container}>
                 <Badge badgeContent={4} color="secondary">
                     <ShoppingCart />
@@ -61,7 +69,7 @@ const HearderButtons = () => {
 
 
             </Link>
-            <Login open={open} setOpen={setOpen}/>
+            <Login open={open} setOpen={setOpen} setAccount={setAccount} />
         </Box>
     )
 };

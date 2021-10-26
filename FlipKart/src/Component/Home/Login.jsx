@@ -65,30 +65,71 @@ const useStyle = makeStyles({
 
 });
 
-const initialValue={
-    login:{
+const initialValue = {
+    login: {
         veiw: "login",
         heading: "Login",
         SubHeading: "Get access to your orders, Wishlist and Recommendations"
     },
-    singup:{
+    singup: {
         veiw: "singup",
         heading: "Looks like you are new here!",
         SubHeading: "Sing up with your mobile number to get started "
     }
 }
-const Login = ({ open, setOpen }) => {
+
+const sinupInitialvalue = {
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+    password: '',
+    phone: ''
+};
+
+const loginInitialvalue = {
+    username: '',
+    password: ''
+}
+
+const Login = ({ open, setOpen, setAccount }) => {
     const classes = useStyle();
-    const [account, setAccount] = useState(initialValue.login)
+    const [account, toggleAccount] = useState(initialValue.login)
+    const [singup, setSingup] = useState(sinupInitialvalue)
+    const [login, setLogin] = useState(loginInitialvalue)
     const handleClose = () => {
         setOpen(false);
         console.log(setOpen);
-        setAccount(initialValue.login);
+        toggleAccount(initialValue.login);
 
     }
-    const toggleAccount=()=>{
-        setAccount(initialValue.singup);
+    const toggleuserAccount = () => {
+        toggleAccount(initialValue.singup);
     }
+
+    const singupdetails = (e) => {
+        setSingup({ ...singup, [e.target.name]: e.target.value })
+    }
+
+    const logindetails = (e) =>{
+        setLogin({...login, [e.target.name]: e.target.value})
+    }
+
+    const singupuser = async () => {
+        //    let respone = await authentcateSingup(sinup);
+        //    if(!respone) return;
+        handleClose();
+        setAccount(singup.username);
+    }
+
+    const loginuser =async ()=>{
+        // let respone = await authentcatesLogin(login);
+        // if(!respone) return;
+        handleClose();
+        setAccount(login.username);
+    
+    }
+
     return (
         <Dialog open={open} onClose={handleClose}>
             <DialogContent className={classes.DialogContent}>
@@ -100,29 +141,29 @@ const Login = ({ open, setOpen }) => {
                     </Box>
 
                     {
-                        (account.veiw === "login")?
+                        (account.veiw === "login") ?
 
-                        <Box className={classes.login}>
-                            <TextField name='username' label='Enter Email/mobile number' />
-                            <TextField name='password' label='Enter Password' />
-                            <Typography className={classes.text}>By continuing. you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
-                            <Button variant="contained" className={classes.logBtn}>{account.heading}</Button>
-                            <Typography className={classes.text} style={{ textAlign: 'center' }}>OR</Typography>
-                            <Button variant="contained" className={classes.requestBtn}>Request OTP</Button>
-                            <Typography  onClick={()=>toggleAccount()} className={classes.createText}>New to Flipkart? Create an account
-                            </Typography>
-                        </Box>
-                        :
-                        <Box className={classes.login}>
-                            <TextField name='firstname' label='Enter First Name' />
-                            <TextField name='lastname' label='Enter Last Name' />
-                            <TextField name='username' label='Enter User Name' />
-                            <TextField name='email' label='Enter Email number' />
-                            <TextField name='password' label='Enter Password' />
-                            <TextField name='phone' label='Enter Phone number' />
-                            <Button variant="contained"  className={classes.logBtn}>{account.veiw}</Button>
-                            
-                        </Box>
+                            <Box className={classes.login}>
+                                <TextField onChange={logindetails} name='username' label='Enter Email/mobile number' />
+                                <TextField onChange={logindetails}  name='password' label='Enter Password' />
+                                <Typography className={classes.text}>By continuing. you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
+                                <Button  onClick={loginuser} variant="contained" className={classes.logBtn}>{account.heading}</Button>
+                                <Typography className={classes.text} style={{ textAlign: 'center' }}>OR</Typography>
+                                <Button variant="contained" className={classes.requestBtn}>Request OTP</Button>
+                                <Typography onClick={() => toggleuserAccount()} className={classes.createText}>New to Flipkart? Create an account
+                                </Typography>
+                            </Box>
+                            :
+                            <Box className={classes.login} >
+                                <TextField onChange={singupdetails} name='firstname' label='Enter First Name' />
+                                <TextField onChange={singupdetails} name='lastname' label='Enter Last Name' />
+                                <TextField onChange={singupdetails} name='username' label='Enter User Name' />
+                                <TextField onChange={singupdetails} name='email' label='Enter Email number' />
+                                <TextField onChange={singupdetails} name='password' label='Enter Password' />
+                                <TextField onChange={singupdetails} name='phone' label='Enter Phone number' />
+                                <Button variant="contained" onClick={singupuser} className={classes.logBtn}>{account.veiw}</Button>
+                                {/*<pre>{JSON.stringify(singup)}</pre>*/}
+                            </Box>
                     }
                 </Box>
             </DialogContent>
