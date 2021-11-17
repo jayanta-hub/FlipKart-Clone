@@ -6,9 +6,13 @@ import Home from "./Component/Home/Home";
 import Cart from "./Component/Cart/Cart.jsx";
 import TempleteProvider from "./templete/TempleteProvider";
 import ContextProvider from "./Context/ContextProvider";
+import {Provider} from 'react-redux';
+import store from './Redux/store';
 
 function App() {
   return (
+    <Provider store={store}>
+ 
     <TempleteProvider>
       <ContextProvider>
         <BrowserRouter>
@@ -20,6 +24,8 @@ function App() {
         </BrowserRouter>
       </ContextProvider>
     </TempleteProvider>
+  </Provider>
+
   );
 }
 
