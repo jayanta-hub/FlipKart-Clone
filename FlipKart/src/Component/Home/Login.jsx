@@ -6,7 +6,7 @@ import React from 'react';
 const useStyle = makeStyles({
     DialogContent: {
         height: "85vh",
-        width: "95vh"
+        width: "100%"
     },
 
     image: {
